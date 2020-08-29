@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     const user = await new Users(req.body).save();
     res.status(HTTP_STATUS.created).send(user);
   } catch (error) {
-    res.status(HTTP_STATUS.bad_request).send(error.errors);
+    res.status(HTTP_STATUS.bad_request).send(error);
   }
 });
 
