@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.login(email, password);
-    res.status(HTTP_STATUS.ok).send(user);
+    res.status(HTTP_STATUS.ok).send(user._id);
   } catch (error) {
     const errorReturned = JSON.parse(error.message);
     res.status(errorReturned.status).send(errorReturned);

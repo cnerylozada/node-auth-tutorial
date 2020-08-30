@@ -29,12 +29,19 @@ userSchema.pre("save", async function (next) {
 
 userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
-  if (user) {
-    return "encontrado";
+  if (!!user) {
+    const auth = await bcrypt.compare(password, user.password);
+    if (!!auth) return user;
+    throw Error(
+      JSON.stringify({
+        status: HTTP_STATUS.bad_request,
+        message: "Bad password",
+      })
+    );
   }
   throw Error(
     JSON.stringify({
-      status: HTTP_STATUS.bad_request,
+      status: HTTP_STATUS.not_found,
       message: "Invalid credentials",
     })
   );

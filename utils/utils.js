@@ -1,4 +1,4 @@
-exports.HTTP_STATUS = {
+const HTTP_STATUS = {
   ok: 200,
   created: 201,
   accepted: 202,
@@ -12,3 +12,5 @@ exports.HTTP_STATUS = {
 
 exports.validateEmail = (email) =>
   /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(email);
+
+module.exports = { HTTP_STATUS };
