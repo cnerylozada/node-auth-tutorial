@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     validate: {
       validator: (v) => validateEmail(v),
       message: "Enter a valid email",
@@ -36,4 +37,4 @@ exports.validateUser = (user) => {
   });
   return schema.validate(user, { abortEarly: false });
 };
-exports.Users = mongoose.model("Users", userSchema);
+exports.User = mongoose.model("Users", userSchema);
