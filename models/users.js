@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const yup = require("yup");
-const { validateEmail } = require("../utils/utils");
+const { validateEmail, HTTP_STATUS } = require("../utils/utils");
 const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
@@ -26,6 +26,19 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+userSchema.statics.login = async function (email, password) {
+  const user = await this.findOne({ email });
+  if (user) {
+    return "encontrado";
+  }
+  throw Error(
+    JSON.stringify({
+      status: HTTP_STATUS.bad_request,
+      message: "Invalid credentials",
+    })
+  );
+};
 
 exports.validateUser = (user) => {
   const schema = yup.object().shape({
