@@ -4,10 +4,6 @@ const { User } = require("../models/users");
 const { maxAge, createToken } = require("../utils/token_methods");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  res.status(HTTP_STATUS.ok).send("login_page");
-});
-
 router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
