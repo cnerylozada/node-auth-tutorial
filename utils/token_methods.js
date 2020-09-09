@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const maxAge = 2 * 60;
+const maxAge = 5 * 60;
 
 const createToken = (id) => {
   return jwt.sign({ id }, "net ninja secret", {
